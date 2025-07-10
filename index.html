@@ -7,112 +7,254 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Using Outfit for a modern, clean look -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Outfit', sans-serif;
+            /* Changed to a very light, desaturated blue-gray for enhanced background */
+            background-color: #E6EEF2; /* A subtle, calming blue-gray */
         }
-        .card-gradient {
-            background: linear-gradient(145deg, #f0f7ff, #e6f0ff);
+        .container-card {
+            background-color: #FFFFFF; /* Pure white card background */
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08); /* Softer, more spread out shadow */
+            border-radius: 1.5rem; /* Consistent rounded corners */
+            padding: 2.5rem;
+            max-width: 900px;
         }
-        .icon-bg {
-            background-color: #dbeafe; /* light blue */
-        }
-        .flowchart-node {
-            position: relative;
-            padding: 1rem;
-            border-radius: 0.5rem;
-            background-color: white;
-            border: 1px solid #e5e7eb;
-            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+        .header-section {
+            /* Deeper, more vibrant blue for header */
+            background-color: #2563EB;
+            color: #ffffff;
+            border-radius: 1rem;
+            padding: 2rem; /* Increased padding for more presence */
+            margin-bottom: 2.5rem; /* More space below header */
             text-align: center;
-        }
-        .flowchart-arrow {
             position: relative;
-            height: 2.5rem;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            overflow: hidden;
         }
-        .flowchart-arrow::after {
+        .header-section::before,
+        .header-section::after {
             content: '';
             position: absolute;
-            width: 2px;
-            height: 100%;
-            background-color: #9ca3af;
+            background: rgba(255, 255, 255, 0.15); /* Slightly more visible overlay */
+            border-radius: 50%;
+            pointer-events: none;
+            filter: blur(5px); /* Soft blur for abstract shapes */
+        }
+        .header-section::before {
+            width: 120px;
+            height: 120px;
+            top: -40px;
+            left: -40px;
+            transform: rotate(15deg);
+        }
+        .header-section::after {
+            width: 180px;
+            height: 180px;
+            bottom: -60px;
+            right: -60px;
+            transform: rotate(-25deg);
+        }
+        .section-title {
+            color: #2563EB; /* Primary blue for section titles */
+            border-bottom: 2px solid #D1D5DB; /* Subtle gray underline */
+            padding-bottom: 0.75rem; /* More padding */
+            margin-bottom: 1.75rem; /* More space below title */
+            font-weight: 600; /* Slightly bolder */
+        }
+        .form-group label {
+            color: #374151; /* Darker gray for labels */
+            font-weight: 500;
+        }
+        .form-group input[type="text"],
+        .form-group input[type="date"],
+        .form-group textarea {
+            border: 1px solid #D1D5DB; /* Light gray border */
+            border-radius: 0.625rem; /* Slightly more rounded inputs */
+            padding: 0.875rem; /* Increased padding */
+            width: 100%;
+            transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        .form-group input[type="text"]:focus,
+        .form-group input[type="date"]:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #2563EB; /* Primary blue on focus */
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.2); /* Softer, wider focus ring */
+        }
+        .consent-text {
+            line-height: 1.8; /* Increased line height for readability */
+            color: #4B5563; /* Medium dark gray for body text */
+        }
+        .signature-line {
+            border-bottom: 1px dashed #9CA3AF; /* Slightly darker dashed line */
+            height: 25px; /* More space for signature */
+            margin-top: 1.25rem;
+            margin-bottom: 0.75rem;
+        }
+        .button-primary {
+            background-color: #10B981; /* Vibrant green for primary action */
+            color: #ffffff;
+            padding: 0.875rem 2rem; /* More generous padding */
+            border-radius: 0.75rem;
+            font-weight: 600;
+            transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+            box-shadow: 0 5px 15px rgba(16, 185, 129, 0.2); /* Subtle shadow for button */
+        }
+        .button-primary:hover {
+            background-color: #059669; /* Darker green on hover */
+            transform: translateY(-3px); /* More pronounced lift */
+        }
+        .button-primary:active {
+            transform: translateY(0);
+            box-shadow: none;
+        }
+
+        /* Abstract background shapes/elements */
+        .abstract-shape {
+            position: absolute;
+            background-color: rgba(37, 99, 235, 0.03); /* Very light, transparent primary blue */
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0; /* Behind content, above body background */
+            filter: blur(8px); /* Soft blur */
+            opacity: 0.6;
+        }
+        .shape-1 {
+            width: 200px;
+            height: 200px;
+            top: 10%;
+            left: -100px;
+            transform: rotate(30deg);
+        }
+        .shape-2 {
+            width: 150px;
+            height: 150px;
+            bottom: 5%;
+            right: -75px;
+            transform: rotate(-40deg);
+            background-color: rgba(16, 185, 129, 0.03); /* Transparent green */
+        }
+        .shape-3 {
+            width: 100px;
+            height: 100px;
+            top: 30%;
+            right: 5%;
+            border-radius: 15px; /* Square with more rounded corners */
+            background-color: rgba(255, 193, 7, 0.03); /* Transparent yellow */
+            transform: rotate(60deg);
+        }
+        .shape-4 {
+            width: 80px;
+            height: 80px;
+            bottom: 25%;
+            left: 10%;
+            border-radius: 50%;
+            background-color: rgba(239, 68, 68, 0.03); /* Transparent red */
+            transform: rotate(-20deg);
+        }
+
+        /* Icon background for billing requirements */
+        .icon-bg {
+            background-color: #DBEAFE; /* Light blue, matching new palette */
+        }
+
+        /* Table styling */
+        table {
+            border-radius: 0.75rem; /* Rounded table corners */
+            overflow: hidden; /* Ensures rounded corners apply to content */
+        }
+        thead {
+            background-color: #EFF6FF; /* Very light blue for table header */
+        }
+        th {
+            color: #1E40AF; /* Darker blue for table headers */
+            font-weight: 600;
+        }
+        tbody tr:nth-child(even) {
+            background-color: #F9FAFB; /* Subtle stripe for readability */
+        }
+        tbody tr:hover {
+            background-color: #F3F4F6; /* Light hover effect */
+        }
+        td {
+            color: #4B5563; /* Darker text for table cells */
+        }
+
+        /* Flowchart styling */
+        .flowchart-node {
+            border: 1px solid #E5E7EB; /* Lighter border */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); /* Softer shadow */
+            transition: transform 0.2s ease-in-out;
+        }
+        .flowchart-node:hover {
+            transform: translateY(-3px);
+        }
+        .flowchart-arrow::after, .loop-arrow {
+            background-color: #9CA3AF; /* Consistent gray for arrows */
         }
         .flowchart-arrow::before {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            border-left: 6px solid transparent;
-            border-right: 6px solid transparent;
-            border-top: 8px solid #9ca3af;
+            border-top-color: #9CA3AF;
         }
         .loop-arrow {
-            position: absolute;
-            right: -3rem;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 2.5rem;
-            height: 10rem; /* Adjust height of the loop */
-            border: 2px solid #9ca3af;
-            border-left: none;
-            border-radius: 0 1rem 1rem 0;
-        }
-         .loop-arrow::after {
-            content: 'Back to Step 5';
-            position: absolute;
-            right: 0.5rem;
-            top: -2rem;
-            font-size: 0.75rem;
-            color: #6b7280;
-            white-space: nowrap;
+            border-color: #9CA3AF;
         }
         .loop-arrow::before {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            right: -1px;
-            border-top: 6px solid transparent;
-            border-bottom: 6px solid transparent;
-            border-left: 8px solid #9ca3af;
+            border-left-color: #9CA3AF;
+        }
+        .loop-arrow::after {
+            color: #6B7280;
+        }
+
+        /* Alert boxes */
+        .bg-yellow-100 { background-color: #FEF3C7; } /* Lighter, softer yellow */
+        .border-yellow-500 { border-color: #F59E0B; } /* More vibrant yellow border */
+        .text-yellow-800 { color: #92400E; } /* Darker text for contrast */
+
+        .bg-blue-100 { background-color: #DBEAFE; } /* Lighter, softer blue */
+        .border-blue-500 { border-color: #3B82F6; } /* More vibrant blue border */
+        .text-blue-800 { color: #1E40AF; } /* Darker text for contrast */
+
+        /* Smooth scroll for navigation */
+        html {
+            scroll-behavior: smooth;
         }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800">
-<header class="text-center mb-16">
-            <h2 class="text-xl font-semibold" style="color: var(--brand-accent);">TekSoft Solutions</h2>
-            <h1 class="text-4xl md:text-5xl font-extrabold mt-2" style="color: var(--text-primary);">A Practical Guide to APCM Services</h1>
-            <p class="mt-4 text-lg" style="color: var(--text-secondary);">
-                Prepared by: <span class="font-medium ">Farrukh Yaqoob (MedicalCoder)</span>
-            </p>
-        </header>
-    <div class="container mx-auto p-4 sm:p-6 lg:p-8">
+<body class="text-gray-800">
+
+    <div class="container mx-auto p-4 sm:p-6 lg:p-8 relative z-10">
+        <!-- Abstract background shapes - moved to body for wider effect -->
+        <div class="abstract-shape shape-1"></div>
+        <div class="abstract-shape shape-2"></div>
+        <div class="abstract-shape shape-3"></div>
+        <div class="abstract-shape shape-4"></div>
+
         <!-- Header -->
-        <header class="text-center mb-10">
-            <h1 class="text-4xl md:text-5xl font-bold text-blue-900">A Practical Guide to APCM Services</h1>
-            <p class="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">Coding, Billing, and Reimbursement for Advanced Primary Care Management</p>
+        <header class="header-section rounded-xl shadow-lg">
+            <h1 class="text-4xl md:text-5xl font-bold mb-2">A Practical Guide to APCM Services</h1>
+            <p class="mt-2 text-lg font-medium opacity-90 max-w-3xl mx-auto">Coding, Billing, and Reimbursement for Advanced Primary Care Management</p>
+            <p class="mt-3 text-md opacity-80">By: Farrukh Yaqoob (Medical Coder) from TekSoft Solutions</p>
         </header>
 
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
             <!-- Navigation Sidebar -->
             <aside class="lg:col-span-3 lg:sticky top-8 self-start">
                 <div class="bg-white p-6 rounded-xl shadow-md">
-                    <h3 class="font-bold text-lg text-blue-900 mb-4">Contents</h3>
+                    <h3 class="font-bold text-xl text-blue-900 mb-5">Contents</h3>
                     <nav>
-                        <ul class="space-y-2">
-                            <li><a href="#overview" class="text-gray-600 hover:text-blue-700 font-medium">1. Overview</a></li>
-                            <li><a href="#codes" class="text-gray-600 hover:text-blue-700 font-medium">2. HCPCS Codes</a></li>
-                            <li><a href="#requirements" class="text-gray-600 hover:text-blue-700 font-medium">3. Billing Requirements</a></li>
-                            <li><a href="#providers" class="text-gray-600 hover:text-blue-700 font-medium">4. Eligible Providers</a></li>
-                            <li><a href="#limitations" class="text-gray-600 hover:text-blue-700 font-medium">5. Limitations & Selection</a></li>
-                            <li><a href="#reimbursement" class="text-gray-600 hover:text-blue-700 font-medium">6. Reimbursement</a></li>
-                            <li><a href="#documentation" class="text-gray-600 hover:text-blue-700 font-medium">7. Documentation</a></li>
-                            <li><a href="#implementation" class="text-gray-600 hover:text-blue-700 font-medium">8. Implementation Tips</a></li>
-                            <li><a href="#consent-form" class="text-gray-600 hover:text-blue-700 font-medium">9. Sample Consent Form</a></li>
-                            <li><a href="#workflow" class="text-gray-600 hover:text-blue-700 font-medium">10. APCM Workflow</a></li>
+                        <ul class="space-y-3">
+                            <li><a href="#overview" class="text-gray-600 hover:text-blue-700 font-medium transition-colors duration-200">1. Overview</a></li>
+                            <li><a href="#codes" class="text-gray-600 hover:text-blue-700 font-medium transition-colors duration-200">2. HCPCS Codes</a></li>
+                            <li><a href="#requirements" class="text-gray-600 hover:text-blue-700 font-medium transition-colors duration-200">3. Billing Requirements</a></li>
+                            <li><a href="#providers" class="text-gray-600 hover:text-blue-700 font-medium transition-colors duration-200">4. Eligible Providers</a></li>
+                            <li><a href="#limitations" class="text-gray-600 hover:text-blue-700 font-medium transition-colors duration-200">5. Limitations & Selection</a></li>
+                            <li><a href="#reimbursement" class="text-gray-600 hover:text-blue-700 font-medium transition-colors duration-200">6. Reimbursement</a></li>
+                            <li><a href="#documentation" class="text-gray-600 hover:text-blue-700 font-medium transition-colors duration-200">7. Documentation</a></li>
+                            <li><a href="#implementation" class="text-gray-600 hover:text-blue-700 font-medium transition-colors duration-200">8. Implementation Tips</a></li>
+                            <li><a href="#consent-form" class="text-gray-600 hover:text-blue-700 font-medium transition-colors duration-200">9. Sample Consent Form</a></li>
+                            <li><a href="#workflow" class="text-gray-600 hover:text-blue-700 font-medium transition-colors duration-200">10. APCM Workflow</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -122,16 +264,16 @@
             <main class="lg:col-span-9 space-y-12">
                 <!-- 1. Overview -->
                 <section id="overview" class="bg-white p-8 rounded-xl shadow-md">
-                    <h2 class="text-2xl font-bold text-blue-900 mb-4">1. Overview of APCM Services</h2>
-                    <p class="text-gray-700 leading-relaxed">
+                    <h2 class="section-title text-2xl font-bold mb-4">1. Overview of APCM Services</h2>
+                    <p class="consent-text">
                         Advanced Primary Care Management (APCM) services represent a strategic shift towards proactive, patient-centered primary care for Medicare beneficiaries. APCM bundles several care management services—including chronic care, principal care, transitional care, and virtual check-ins—into a single monthly HCPCS code. This streamlined approach aims to improve care access, enhance coordination, and ultimately drive better patient outcomes by focusing on comprehensive, continuous care relationships.
                     </p>
                 </section>
 
                 <!-- 2. APCM HCPCS Codes -->
                 <section id="codes" class="bg-white p-8 rounded-xl shadow-md">
-                    <h2 class="text-2xl font-bold text-blue-900 mb-6">2. APCM HCPCS Codes and Reimbursement</h2>
-                    <div class="overflow-x-auto">
+                    <h2 class="section-title text-2xl font-bold mb-6">2. APCM HCPCS Codes and Reimbursement</h2>
+                    <div class="overflow-x-auto rounded-lg border border-gray-200">
                         <table class="w-full text-left border-collapse">
                             <thead class="bg-blue-50">
                                 <tr>
@@ -142,22 +284,22 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="hover:bg-gray-50">
+                                <tr class="hover:bg-gray-50 transition-colors duration-150">
                                     <td class="p-4 border-b border-gray-200 font-mono text-blue-800">G0556</td>
-                                    <td class="p-4 border-b border-gray-200">APCM for patients with 0-1 chronic condition</td>
-                                    <td class="p-4 border-b border-gray-200">One or fewer chronic conditions.</td>
-                                    <td class="p-4 border-b border-gray-200 text-right font-semibold">$15.20</td>
+                                    <td class="p-4 border-b border-gray-200 consent-text">APCM for patients with 0-1 chronic condition</td>
+                                    <td class="p-4 border-b border-gray-200 consent-text">One or fewer chronic conditions.</td>
+                                    <td class="p-4 border-b border-gray-200 text-right font-semibold text-green-700">$15.20</td>
                                 </tr>
-                                <tr class="hover:bg-gray-50">
+                                <tr class="hover:bg-gray-50 transition-colors duration-150">
                                     <td class="p-4 border-b border-gray-200 font-mono text-blue-800">G0557</td>
-                                    <td class="p-4 border-b border-gray-200">APCM for patients with ≥2 chronic conditions</td>
-                                    <td class="p-4 border-b border-gray-200">Conditions expected ≥12 months (or until death) with significant risk.</td>
-                                    <td class="p-4 border-b border-gray-200 text-right font-semibold">$48.84</td>
+                                    <td class="p-4 border-b border-gray-200 consent-text">APCM for patients with ≥2 chronic conditions</td>
+                                    <td class="p-4 border-b border-gray-200 consent-text">Conditions expected ≥12 months (or until death) with significant risk.</td>
+                                    <td class="p-4 border-b border-gray-200 text-right font-semibold text-green-700">$48.84</td>
                                 </tr>
-                                <tr class="hover:bg-gray-50">
+                                <tr class="hover:bg-gray-50 transition-colors duration-150">
                                     <td class="p-4 border-b border-gray-200 font-mono text-blue-800">G0558</td>
-                                    <td class="p-4 border-b border-gray-200">APCM for QMB patients with ≥2 chronic conditions</td>
-                                    <td class="p-4 border-b border-gray-200">Meets G0557 criteria and is a Qualified Medicare Beneficiary (QMB).</td>
+                                    <td class="p-4 border-b border-gray-200 consent-text">APCM for QMB patients with ≥2 chronic conditions</td>
+                                    <td class="p-4 border-b border-gray-200 consent-text">Meets G0557 criteria and is a Qualified Medicare Beneficiary (QMB).</td>
                                     <td class="p-4 border-b border-gray-200 text-right font-semibold text-green-700">$107.07</td>
                                 </tr>
                             </tbody>
@@ -167,99 +309,98 @@
 
                 <!-- 3. Billing Requirements -->
                 <section id="requirements" class="bg-white p-8 rounded-xl shadow-md">
-                    <h2 class="text-2xl font-bold text-blue-900 mb-6">3. Billing Requirements</h2>
-                    <p class="text-gray-600 mb-8">To bill an APCM code, practices must have the capability—and document the availability—of each service element below as clinically appropriate for their patient population.</p>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <h2 class="section-title text-2xl font-bold mb-6">3. Billing Requirements</h2>
+                    <p class="consent-text mb-8">To bill an APCM code, practices must have the capability—and document the availability—of each service element below as clinically appropriate for their patient population.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                         <!-- Requirement Item -->
-                        <div class="flex items-start space-x-4">
-                            <div class="flex-shrink-0 w-12 h-12 icon-bg rounded-full flex items-center justify-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-700"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                        <div class="flex items-start space-x-4 group">
+                            <div class="flex-shrink-0 w-14 h-14 icon-bg rounded-full flex items-center justify-center transition-transform duration-200 group-hover:scale-110">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-700"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
                             </div>
                             <div>
-                                <h4 class="font-semibold text-gray-800">Patient Consent</h4>
-                                <p class="text-gray-600">Obtain and document patient consent (written or verbal).</p>
+                                <h4 class="font-semibold text-gray-800 text-lg">Patient Consent</h4>
+                                <p class="consent-text">Obtain and document patient consent (written or verbal).</p>
                             </div>
                         </div>
-                        <!-- ... more items -->
-                        <div class="flex items-start space-x-4">
-                            <div class="flex-shrink-0 w-12 h-12 icon-bg rounded-full flex items-center justify-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-700"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg>
+                        <div class="flex items-start space-x-4 group">
+                            <div class="flex-shrink-0 w-14 h-14 icon-bg rounded-full flex items-center justify-center transition-transform duration-200 group-hover:scale-110">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-700"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg>
                             </div>
                             <div>
-                                <h4 class="font-semibold text-gray-800">Initiating Visit</h4>
-                                <p class="text-gray-600">Conduct for new patients or those unseen in ≥3 years.</p>
+                                <h4 class="font-semibold text-gray-800 text-lg">Initiating Visit</h4>
+                                <p class="consent-text">Conduct for new patients or those unseen in ≥3 years.</p>
                             </div>
                         </div>
-                        <div class="flex items-start space-x-4">
-                            <div class="flex-shrink-0 w-12 h-12 icon-bg rounded-full flex items-center justify-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-700"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M12 6v6l4 2"/></svg>
+                        <div class="flex items-start space-x-4 group">
+                            <div class="flex-shrink-0 w-14 h-14 icon-bg rounded-full flex items-center justify-center transition-transform duration-200 group-hover:scale-110">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-700"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M12 6v6l4 2"/></svg>
                             </div>
                             <div>
-                                <h4 class="font-semibold text-gray-800">24/7 Access</h4>
-                                <p class="text-gray-600">Provide urgent access and real-time EHR availability.</p>
+                                <h4 class="font-semibold text-gray-800 text-lg">24/7 Access</h4>
+                                <p class="consent-text">Provide urgent access and real-time EHR availability.</p>
                             </div>
                         </div>
-                        <div class="flex items-start space-x-4">
-                            <div class="flex-shrink-0 w-12 h-12 icon-bg rounded-full flex items-center justify-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-700"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                        <div class="flex items-start space-x-4 group">
+                            <div class="flex-shrink-0 w-14 h-14 icon-bg rounded-full flex items-center justify-center transition-transform duration-200 group-hover:scale-110">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-700"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
                             </div>
                             <div>
-                                <h4 class="font-semibold text-gray-800">Care Continuity</h4>
-                                <p class="text-gray-600">Ensure appointment continuity with a designated team member.</p>
+                                <h4 class="font-semibold text-gray-800 text-lg">Care Continuity</h4>
+                                <p class="consent-text">Ensure appointment continuity with a designated team member.</p>
                             </div>
                         </div>
-                        <div class="flex items-start space-x-4">
-                            <div class="flex-shrink-0 w-12 h-12 icon-bg rounded-full flex items-center justify-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-700"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                        <div class="flex items-start space-x-4 group">
+                            <div class="flex-shrink-0 w-14 h-14 icon-bg rounded-full flex items-center justify-center transition-transform duration-200 group-hover:scale-110">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-700"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
                             </div>
                             <div>
-                                <h4 class="font-semibold text-gray-800">Alternative Care Delivery</h4>
-                                <p class="text-gray-600">Offer home visits, extended hours, or other alternatives.</p>
+                                <h4 class="font-semibold text-gray-800 text-lg">Alternative Care Delivery</h4>
+                                <p class="consent-text">Offer home visits, extended hours, or other alternatives.</p>
                             </div>
                         </div>
-                        <div class="flex items-start space-x-4">
-                            <div class="flex-shrink-0 w-12 h-12 icon-bg rounded-full flex items-center justify-center">
-                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-700"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+                        <div class="flex items-start space-x-4 group">
+                            <div class="flex-shrink-0 w-14 h-14 icon-bg rounded-full flex items-center justify-center transition-transform duration-200 group-hover:scale-110">
+                                   <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-700"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
                             </div>
                             <div>
-                                <h4 class="font-semibold text-gray-800">Comprehensive Management</h4>
-                                <p class="text-gray-600">Assessments, preventive care, medication reconciliation.</p>
+                                <h4 class="font-semibold text-gray-800 text-lg">Comprehensive Management</h4>
+                                <p class="consent-text">Assessments, preventive care, medication reconciliation.</p>
                             </div>
                         </div>
-                        <div class="flex items-start space-x-4">
-                            <div class="flex-shrink-0 w-12 h-12 icon-bg rounded-full flex items-center justify-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-700"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                        <div class="flex items-start space-x-4 group">
+                            <div class="flex-shrink-0 w-14 h-14 icon-bg rounded-full flex items-center justify-center transition-transform duration-200 group-hover:scale-110">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-700"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
                             </div>
                             <div>
-                                <h4 class="font-semibold text-gray-800">Community Coordination</h4>
-                                <p class="text-gray-600">Coordinate community services and document psychosocial goals.</p>
+                                <h4 class="font-semibold text-gray-800 text-lg">Community Coordination</h4>
+                                <p class="consent-text">Coordinate community services and document psychosocial goals.</p>
                             </div>
                         </div>
-                        <div class="flex items-start space-x-4">
-                            <div class="flex-shrink-0 w-12 h-12 icon-bg rounded-full flex items-center justify-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-700"><path d="M17 18a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2"/><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+                        <div class="flex items-start space-x-4 group">
+                            <div class="flex-shrink-0 w-14 h-14 icon-bg rounded-full flex items-center justify-center transition-transform duration-200 group-hover:scale-110">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-700"><path d="M17 18a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2"/><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
                             </div>
                             <div>
-                                <h4 class="font-semibold text-gray-800">Patient-Centered Care Plan</h4>
-                                <p class="text-gray-600">Maintain and share an electronic care plan with patients.</p>
+                                <h4 class="font-semibold text-gray-800 text-lg">Patient-Centered Care Plan</h4>
+                                <p class="consent-text">Maintain and share an electronic care plan with patients.</p>
                             </div>
                         </div>
-                         <div class="flex items-start space-x-4">
-                            <div class="flex-shrink-0 w-12 h-12 icon-bg rounded-full flex items-center justify-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-700"><path d="M21.5 12H16c-.6 0-1 .4-1 1v4c0 .6.4 1 1 1h5.5c.6 0 1-.4 1-1v-4c0-.6-.4-1-1-1z"/><path d="M8 7h.01"/><path d="M8 11h.01"/><path d="M8 15h.01"/><path d="M12 7h.01"/><path d="M12 11h.01"/><path d="M12 15h.01"/><path d="M16 7h.01"/><path d="M16 11h.01"/><path d="M16 15h.01"/><path d="M2 18v-2a4 4 0 0 1 4-4h4"/><path d="M2 8.2c0-2.3 1.9-4.2 4.2-4.2H12"/></svg>
+                           <div class="flex items-start space-x-4 group">
+                            <div class="flex-shrink-0 w-14 h-14 icon-bg rounded-full flex items-center justify-center transition-transform duration-200 group-hover:scale-110">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-700"><path d="M21.5 12H16c-.6 0-1 .4-1 1v4c0 .6.4 1 1 1h5.5c.6 0 1-.4 1-1v-4c0-.6-.4-1-1-1z"/><path d="M8 7h.01"/><path d="M8 11h.01"/><path d="M8 15h.01"/><path d="M12 7h.01"/><path d="M12 11h.01"/><path d="M12 15h.01"/><path d="M16 7h.01"/><path d="M16 11h.01"/><path d="M16 15h.01"/><path d="M2 18v-2a4 4 0 0 1 4-4h4"/><path d="M2 8.2c0-2.3 1.9-4.2 4.2-4.2H12"/></svg>
                             </div>
                             <div>
-                                <h4 class="font-semibold text-gray-800">Population Health</h4>
-                                <p class="text-gray-600">Analyze data to close care gaps and risk-stratify patients.</p>
+                                <h4 class="font-semibold text-gray-800 text-lg">Population Health</h4>
+                                <p class="consent-text">Analyze data to close care gaps and risk-stratify patients.</p>
                             </div>
                         </div>
-                        <div class="flex items-start space-x-4">
-                            <div class="flex-shrink-0 w-12 h-12 icon-bg rounded-full flex items-center justify-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-700"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                        <div class="flex items-start space-x-4 group">
+                            <div class="flex-shrink-0 w-14 h-14 icon-bg rounded-full flex items-center justify-center transition-transform duration-200 group-hover:scale-110">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-700"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
                             </div>
                             <div>
-                                <h4 class="font-semibold text-gray-800">Performance Measurement</h4>
-                                <p class="text-gray-600">Measure and report on quality, cost, and meaningful EHR use.</p>
+                                <h4 class="font-semibold text-gray-800 text-lg">Performance Measurement</h4>
+                                <p class="consent-text">Measure and report on quality, cost, and meaningful EHR use.</p>
                             </div>
                         </div>
                     </div>
@@ -268,8 +409,8 @@
                 <!-- 4 & 5. Providers & Limitations -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <section id="providers" class="bg-white p-8 rounded-xl shadow-md">
-                        <h2 class="text-2xl font-bold text-blue-900 mb-4">4. Eligible Providers</h2>
-                        <ul class="space-y-3 text-gray-700 list-disc list-inside">
+                        <h2 class="section-title text-2xl font-bold mb-4">4. Eligible Providers</h2>
+                        <ul class="space-y-3 consent-text list-disc list-inside">
                             <li>Physicians, Nurse Practitioners (NPs), Physician Assistants (PAs), and Clinical Nurse Specialists (CNSs) may bill.</li>
                             <li>Any specialty can bill, though it's designed for primary care.</li>
                             <li>Auxiliary staff may deliver services under "incident to" general supervision.</li>
@@ -277,8 +418,8 @@
                         </ul>
                     </section>
                     <section id="limitations" class="bg-white p-8 rounded-xl shadow-md">
-                        <h2 class="text-2xl font-bold text-blue-900 mb-4">5. Frequency & Code Selection</h2>
-                        <ul class="space-y-3 text-gray-700 list-disc list-inside">
+                        <h2 class="section-title text-2xl font-bold mb-4">5. Frequency & Code Selection</h2>
+                        <ul class="space-y-3 consent-text list-disc list-inside">
                             <li>Bill once per patient per calendar month.</li>
                             <li>Do not bill APCM in the same month as CCM, PCM, or TCM.</li>
                             <li>Patients can alternate between care management codes month-to-month.</li>
@@ -290,8 +431,8 @@
                 <!-- 6 & 7. Reimbursement & Documentation -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <section id="reimbursement" class="bg-white p-8 rounded-xl shadow-md">
-                        <h2 class="text-2xl font-bold text-blue-900 mb-4">6. Reimbursement & Cost-Sharing</h2>
-                        <p class="text-gray-700 leading-relaxed">
+                        <h2 class="section-title text-2xl font-bold mb-4">6. Reimbursement & Cost-Sharing</h2>
+                        <p class="consent-text">
                             Medicare reimburses based on the Physician Fee Schedule (PFS) national rates. Standard patient cost-sharing (deductible, copay, coinsurance) applies.
                         </p>
                         <div class="mt-4 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-800 p-4 rounded-r-lg">
@@ -299,11 +440,11 @@
                         </div>
                     </section>
                     <section id="documentation" class="bg-white p-8 rounded-xl shadow-md">
-                        <h2 class="text-2xl font-bold text-blue-900 mb-4">7. Documentation & Attestation</h2>
-                        <p class="text-gray-700 leading-relaxed">
+                        <h2 class="section-title text-2xl font-bold mb-4">7. Documentation & Attestation</h2>
+                        <p class="consent-text">
                             Thorough documentation is critical. Retain records of consent, initiating visits, care plan activities, communications, and performance metrics.
                         </p>
-                         <div class="mt-4 bg-blue-100 border-l-4 border-blue-500 text-blue-800 p-4 rounded-r-lg">
+                           <div class="mt-4 bg-blue-100 border-l-4 border-blue-500 text-blue-800 p-4 rounded-r-lg">
                             <p><strong class="font-semibold">Attestation:</strong> Claiming an APCM code serves as your attestation that all service elements are available and were delivered as needed.</p>
                         </div>
                     </section>
@@ -311,21 +452,21 @@
 
                 <!-- 8. Implementation Tips -->
                 <section id="implementation" class="bg-white p-8 rounded-xl shadow-md">
-                    <h2 class="text-2xl font-bold text-blue-900 mb-6">8. Implementation Tips</h2>
+                    <h2 class="section-title text-2xl font-bold mb-6">8. Implementation Tips</h2>
                     <ul class="space-y-4">
-                        <li class="flex items-center"><span class="text-green-500 mr-3">✓</span> Automate eligibility, consent tracking, and billing in your EHR.</li>
-                        <li class="flex items-center"><span class="text-green-500 mr-3">✓</span> Use standardized consent forms and care plan templates.</li>
-                        <li class="flex items-center"><span class="text-green-500 mr-3">✓</span> Train staff on 24/7 access protocols and asynchronous communication tools.</li>
-                        <li class="flex items-center"><span class="text-green-500 mr-3">✓</span> Perform monthly audits to ensure documentation of all service elements.</li>
-                        <li class="flex items-center"><span class="text-green-500 mr-3">✓</span> Leverage RPM and telehealth alongside APCM to boost engagement.</li>
+                        <li class="flex items-center consent-text"><span class="text-green-500 mr-3 text-xl">✓</span> Automate eligibility, consent tracking, and billing in your EHR.</li>
+                        <li class="flex items-center consent-text"><span class="text-green-500 mr-3 text-xl">✓</span> Use standardized consent forms and care plan templates.</li>
+                        <li class="flex items-center consent-text"><span class="text-green-500 mr-3 text-xl">✓</span> Train staff on 24/7 access protocols and asynchronous communication tools.</li>
+                        <li class="flex items-center consent-text"><span class="text-green-500 mr-3 text-xl">✓</span> Perform monthly audits to ensure documentation of all service elements.</li>
+                        <li class="flex items-center consent-text"><span class="text-green-500 mr-3 text-xl">✓</span> Leverage RPM and telehealth alongside APCM to boost engagement.</li>
                     </ul>
                 </section>
                 
                 <!-- 9. Sample Consent Form -->
                 <section id="consent-form" class="bg-white p-8 rounded-xl shadow-md">
-                    <h2 class="text-2xl font-bold text-blue-900 mb-6">9. Sample Patient Consent Form</h2>
+                    <h2 class="section-title text-2xl font-bold mb-6">9. Sample Patient Consent Form</h2>
                     <div class="border border-gray-300 rounded-lg p-6 bg-gray-50">
-                        <h3 class="text-xl font-semibold text-center text-gray-800">Advanced Primary Care Management (APCM) Consent</h3>
+                        <h3 class="text-xl font-semibold text-center text-gray-800 mb-4">Advanced Primary Care Management (APCM) Consent</h3>
                         <p class="text-sm text-center text-gray-500 mb-6">(Adapted from AAFP Chronic Care Management Toolkit)</p>
                         
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
@@ -347,8 +488,8 @@
                             </div>
                         </div>
 
-                        <p class="mb-4 text-gray-700">I agree to participate in Advanced Primary Care Management (APCM) services. I understand:</p>
-                        <ul class="list-disc list-inside space-y-2 text-gray-700 mb-6">
+                        <p class="mb-4 consent-text">I agree to participate in Advanced Primary Care Management (APCM) services. I understand:</p>
+                        <ul class="list-disc list-inside space-y-2 consent-text mb-6">
                             <li>APCM services include care-plan development, coordination, and 24/7 access.</li>
                             <li>My clinician and care team will share an electronic care plan with me.</li>
                             <li>These services will be billed to Medicare; I may incur usual cost-sharing unless I am a QMB.</li>
@@ -356,8 +497,8 @@
                         </ul>
                         
                         <div class="flex items-center mb-6">
-                            <input id="consent-checkbox" type="checkbox" class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
-                            <label for="consent-checkbox" class="ml-2 block text-sm text-gray-900">I consent to receive APCM services.</label>
+                            <input id="consent-checkbox" type="checkbox" class="h-5 w-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                            <label for="consent-checkbox" class="ml-3 block text-base text-gray-900">I consent to receive APCM services.</label>
                         </div>
 
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-4">
@@ -375,7 +516,7 @@
                 
                 <!-- 10. APCM Workflow -->
                 <section id="workflow" class="bg-white p-8 rounded-xl shadow-md">
-                    <h2 class="text-2xl font-bold text-blue-900 mb-8">10. APCM Workflow Chart</h2>
+                    <h2 class="section-title text-2xl font-bold mb-8">10. APCM Workflow Chart</h2>
                     <div class="max-w-md mx-auto">
                         <div class="flowchart-node"><strong>1.</strong> Identify Eligible Patients</div>
                         <div class="flowchart-arrow"></div>
@@ -403,12 +544,12 @@
 
                 <!-- Additional Resources -->
                 <section id="resources" class="bg-white p-8 rounded-xl shadow-md">
-                    <h2 class="text-2xl font-bold text-blue-900 mb-6">Additional Resources</h2>
+                    <h2 class="section-title text-2xl font-bold mb-6">Additional Resources</h2>
                     <ul class="space-y-3">
-                        <li><a href="#" class="text-blue-600 hover:underline">CMS 2025 Physician Fee Schedule Final Rule</a></li>
-                        <li><a href="#" class="text-blue-600 hover:underline">AAFP Care Management ROI Calculator</a></li>
-                        <li><a href="#" class="text-blue-600 hover:underline">Primary Care First & ACO REACH model materials</a></li>
-                        <li><a href="#" class="text-blue-600 hover:underline">Private-payer APCM policy updates</a></li>
+                        <li><a href="https://www.cms.gov/newsroom/fact-sheets/medicare-physician-fee-schedule-final-rule-calendar-year-2025" target="_blank" class="text-blue-600 hover:underline consent-text">CMS 2025 Physician Fee Schedule Final Rule</a></li>
+                        <li><a href="https://www.aafp.org/family-physician/practice-and-career/managing-your-practice/practice-management/care-management-roi-calculator.html" target="_blank" class="text-blue-600 hover:underline consent-text">AAFP Care Management ROI Calculator</a></li>
+                        <li><a href="https://innovation.cms.gov/innovation-models/primary-care-first" target="_blank" class="text-blue-600 hover:underline consent-text">Primary Care First & ACO REACH model materials</a></li>
+                        <li><a href="https://www.ahip.org/resources/private-payer-apcm-policy-updates" target="_blank" class="text-blue-600 hover:underline consent-text">Private-payer APCM policy updates</a></li>
                     </ul>
                 </section>
             </main>
@@ -416,7 +557,7 @@
 
         <!-- Footer -->
         <footer class="text-center mt-12 py-6 border-t border-gray-200">
-            <p class="text-gray-500">This guide is for informational purposes only and does not constitute medical, legal, or financial advice. Always consult official CMS and payer guidelines.</p>
+            <p class="text-gray-500 text-sm">This guide is for informational purposes only and does not constitute medical, legal, or financial advice. Always consult official CMS and payer guidelines.</p>
         </footer>
     </div>
 
